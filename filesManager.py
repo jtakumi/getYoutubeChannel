@@ -1,6 +1,6 @@
 import os,json,shutil
 
-class readFile:
+class fileManager:
 
     def readFile(self,dirName,fileName):
         with open(os.path.abspath(os.path.join(os.path.dirname(__file__),dirName,fileName)),"r",encoding='utf-8') as f:

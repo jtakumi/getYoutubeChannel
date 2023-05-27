@@ -5,7 +5,7 @@ from filesManager import fileManager
 class getYoutubeChannel:
 
     def getChannelInfo(self,fileName,keyWord):
-        fileM = filesManager()
+        fileM = fileManager()
         apiKey = fileM.readFile('','.key')
         YOUTUBE_API_SERVICE_NAME='youtube'
         YOUTUBE_API_VERSION='v3'
