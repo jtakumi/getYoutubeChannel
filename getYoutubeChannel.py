@@ -31,15 +31,14 @@ class getYoutubeChannel:
                 while(writingCount == 0):
                     if searchResults['id']['kind'] !=  'youtube#channel':
                         continue
-                    print(searchResults)
-                    print(json.dumps(searchResults,indent=2,ensure_ascii=False),file=f)
-                    writingCount += 1
-                else:
-                    break
 
-    def main():
-        gYC = getYoutubeChannel()
-        print("please input the search key word.")
-        keyWord = input()
-        fileName = 'gotYoutubeChannel/' + keyWord + '.json'
-        gYC.getChannelInfo(fileName,keyWord)
+                    channelId = searchResults['id']['channelId']
+                    channelResponse = youtube.channels().list(
+                        part = 'statistics,snippet',
+                        id = channelId
+                    ).execute()
+                    
+                    print(searchResults)
+                    print(json.dumps(channelResponse,indent=2,ensure_ascii=False),file=f)
+                    writingCount += 1
+
