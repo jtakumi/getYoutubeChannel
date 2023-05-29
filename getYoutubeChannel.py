@@ -24,7 +24,7 @@ class getYoutubeChannel:
         except Exception as e:
             print('An error occurred while fetching search results.')
             return
-        
+        channelDataList = []
         with open(fileName,'w',encoding='utf-8') as f:
             writingCount = 0
             for searchResults in searchRespose.get('items',[]):
@@ -37,7 +37,16 @@ class getYoutubeChannel:
                         part = 'statistics,snippet',
                         id = channelId
                     ).execute()
-                    
+
+                    channelData = {}
+                    channelData['channelName'] = searchResults['snippet']['channelTitle']
+                    channelData['videoCount'] = channelResponse['items'][0]['statistics']['videoCount']
+                    channelData['viewCount'] = channelResponse['items'][0]['statistics']['viewCount']
+                    channelData['subscribers'] = channelResponse['items'][0]['statistics']['subscriberCount']
+                    channelData['country'] = channelResponse['items'][0]['snippet'].get('country','')
+
+                    channelDataList.append(channelData)
+
                     print(searchResults)
                     print(json.dumps(channelResponse,indent=2,ensure_ascii=False),file=f)
                     writingCount += 1
