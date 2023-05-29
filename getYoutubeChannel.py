@@ -39,6 +39,6 @@ class getYoutubeChannel:
                     ).execute()
                     
                     print(searchResults)
-                    print(json.dumps(searchResults,indent=2,ensure_ascii=False),file=f)
+                    print(json.dumps(channelResponse,indent=2,ensure_ascii=False),file=f)
                     writingCount += 1
 
