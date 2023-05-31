@@ -26,28 +26,26 @@ class getYoutubeChannel:
             return
         channelDataList = []
         with open(fileName,'w',encoding='utf-8') as f:
-            writingCount = 0
             for searchResults in searchRespose.get('items',[]):
-                while(writingCount == 0):
-                    if searchResults['id']['kind'] !=  'youtube#channel':
-                        continue
+                if searchResults['id']['kind'] !=  'youtube#channel':
+                    continue
 
-                    channelId = searchResults['id']['channelId']
-                    channelResponse = youtube.channels().list(
-                        part = 'statistics,snippet',
-                        id = channelId
-                    ).execute()
+                channelId = searchResults['id']['channelId']
+                channelResponse = youtube.channels().list(
+                    part = 'statistics,snippet',
+                    id = channelId
+                ).execute()
 
-                    channelData = {}
-                    channelData['channelName'] = searchResults['snippet']['channelTitle']
-                    channelData['videoCount'] = channelResponse['items'][0]['statistics']['videoCount']
-                    channelData['viewCount'] = channelResponse['items'][0]['statistics']['viewCount']
-                    channelData['subscribers'] = channelResponse['items'][0]['statistics']['subscriberCount']
-                    channelData['country'] = channelResponse['items'][0]['snippet'].get('country','')
+                channelData = {}
+                channelData['channelName'] = searchResults['snippet']['channelTitle']
+                channelData['videoCount'] = channelResponse['items'][0]['statistics']['videoCount']
+                channelData['viewCount'] = channelResponse['items'][0]['statistics']['viewCount']
+                channelData['subscribers'] = channelResponse['items'][0]['statistics']['subscriberCount']
+                channelData['country'] = channelResponse['items'][0]['snippet'].get('country','')
 
-                    channelDataList.append(channelData)
+                channelDataList.append(channelData)
 
-                    print(searchResults)
-                    print(json.dumps(channelResponse,indent=2,ensure_ascii=False),file=f)
-                    writingCount += 1
+                print(searchResults)
+                print(json.dumps(channelResponse,indent=2,ensure_ascii=False),file=f)
+                
 
