@@ -1,6 +1,7 @@
 from googleapiclient.discovery import build
 import json
 from filesManager import fileManager
+from makeCsv import makeCSV
 
 class getYoutubeChannel:
 
@@ -44,6 +45,7 @@ class getYoutubeChannel:
                 channelData['country'] = channelResponse['items'][0]['snippet'].get('country','')
 
                 channelDataList.append(channelData)
+                mkCSV = makeCSV()
 
                 print(searchResults)
                 print(json.dumps(channelResponse,indent=2,ensure_ascii=False),file=f)
