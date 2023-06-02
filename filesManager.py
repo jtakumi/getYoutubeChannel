@@ -30,10 +30,15 @@ class fileManager:
         getName = ''.join(getName)
         return getName
     
-    def copeFile(self,dirName,copyDir):
+    def copyFile(self,dirName,copyDir):
         for fileName in os.listdir(dirName):
             filePath = os.path.join(dirName,fileName)
             direction = os.path.join(copyDir,fileName)
             shutil.copy2(filePath,direction)
             print(fileName + " has copied.")
         print("All process done.")
+
+    def makeDir(self,dirName):
+        if not os.path.exists(dirName):
+            os.makedirs(dirName)
+            print(f"{dirName} created")
