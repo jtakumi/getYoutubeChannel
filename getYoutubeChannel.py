@@ -7,17 +7,17 @@ class getYoutubeChannel:
 
     def getChannelInfo(self,fileName,keyWord):
         fileM = fileManager()
-        apiKey = fileM.readFile('','.key')
+        APIKEY = fileM.readFile('','.key')
         YOUTUBE_API_SERVICE_NAME='youtube'
         YOUTUBE_API_VERSION='v3'
         youtube=build(
             YOUTUBE_API_SERVICE_NAME,
             YOUTUBE_API_VERSION,
-            developerKey = apiKey
+            developerKey = APIKEY
         )
 
         try:
-            searchRespose=youtube.search().list(
+            searchResponse=youtube.search().list(
                 q=keyWord,
                 part='id,snippet',
                 maxResults=25
@@ -27,7 +27,7 @@ class getYoutubeChannel:
             return
         channelDataList = []
         with open(fileName,'w',encoding='utf-8') as f:
-            for searchResults in searchRespose.get('items',[]):
+            for searchResults in searchResponse.get('items',[]):
                 if searchResults['id']['kind'] !=  'youtube#channel':
                     continue
 
